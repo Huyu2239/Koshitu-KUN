@@ -19,6 +19,7 @@ class Private(commands.Cog):
             return
         channel = await self.bot.category.create_text_channel(name=ctx.author.name)
         await channel.set_permissions(ctx.guild.get_role(self.bot.member_role_id), read_messages=False)
+        await channel.set_permissions(ctx.author, manage_channels=True)
         await channel.set_permissions(ctx.author, read_messages=True)
 
         msg = await channel.send(f'<@{ctx.author.id}>\n防音室を作成しました。')

@@ -18,8 +18,9 @@ class Open(commands.Cog):
         if ctx.channel.id != self.bot.open_ch_id:
             return
         channel = await self.bot.category.create_text_channel(name=ctx.author.name)
+        await channel.set_permissions(ctx.author, manage_channels=True)
+
         msg = await channel.send(f'<@{ctx.author.id}>\n個室を作成しました。')
-        url = f'https://discord.com/channels/{self.bot.guild_id}/{channel.id}/{msg.id}'
         embed = discord.Embed(description=f'{channel.mention}')
         await ctx.send(embed=embed)
 
