@@ -13,15 +13,15 @@ class Private(commands.Cog):
     def cog_unload(self):
         self.bot.slash.remove_cog_commands(self)
 
-    @cog_ext.cog_slash(name='private', description='管理人・副管理人・権限で許可した人にしか見えなくなる部屋を開設します。')
+    @cog_ext.cog_slash(name='private', description='管理人・副管理人・権限で許可した人にしか見えなくなる防音室を開設します。')
     async def slash_say(self, ctx: SlashContext):
-        if ctx.channel.id != self.bot.com_ch_id:
+        if ctx.channel.id != self.bot.priv_ch_id:
             return
         channel = await self.bot.category.create_text_channel(name=ctx.author.name)
-        await channel.set_permissions(ctx.guild.get_role(self.bot.member_id), read_messages=False)
+        await channel.set_permissions(ctx.guild.get_role(self.bot.member_role_id), read_messages=False)
         await channel.set_permissions(ctx.author, read_messages=True)
 
-        msg = await channel.send(f'<@{ctx.author.id}>\nプライベートチャンネルを作成しました。')
+        msg = await channel.send(f'<@{ctx.author.id}>\n防音室を作成しました。')
         embed = discord.Embed(description=f'{channel.mention}')
         await ctx.send(embed=embed)
 

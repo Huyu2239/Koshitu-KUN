@@ -22,9 +22,10 @@ class Mybot(commands.Bot):
         self.slash_client = SlashCommand(self, sync_commands=True)
         self.owner_id = int(os.environ['OWNER_ID'])
         self.guild_id = int(os.environ['GUILD_ID'])
+        self.member_role_id = int(os.environ['MEMBER_ROLE_ID'])
+        self.open_ch_id = int(os.environ['OPEN_CH_ID'])
+        self.priv_ch_id = int(os.environ['PRIV_CH_ID'])
         self.log_ch_id = int(os.environ['LOG_CH_ID'])
-        self.com_ch_id = 836963480069865492
-        self.member_id = 837168066516746260
 
 
     async def on_ready(self):

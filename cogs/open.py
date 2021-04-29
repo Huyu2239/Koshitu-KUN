@@ -13,12 +13,12 @@ class Open(commands.Cog):
     def cog_unload(self):
         self.bot.slash.remove_cog_commands(self)
 
-    @cog_ext.cog_slash(name='open', description='部屋を開いた人以外も自由に閲覧、書き込みできる部屋を開設します。')
+    @cog_ext.cog_slash(name='open', description='個室を開いた人以外も自由に閲覧、書き込みできる個室を開設します。')
     async def slash_say(self, ctx: SlashContext):
-        if ctx.channel.id != 836963480069865492:
+        if ctx.channel.id != self.bot.open_ch_id:
             return
         channel = await self.bot.category.create_text_channel(name=ctx.author.name)
-        msg = await channel.send(f'<@{ctx.author.id}>\nオープンチャンネルを作成しました。')
+        msg = await channel.send(f'<@{ctx.author.id}>\n個室を作成しました。')
         url = f'https://discord.com/channels/{self.bot.guild_id}/{channel.id}/{msg.id}'
         embed = discord.Embed(description=f'{channel.mention}')
         await ctx.send(embed=embed)
