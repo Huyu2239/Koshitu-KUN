@@ -12,6 +12,10 @@ class CommandErrorHandler(commands.Cog):
     async def on_error(self, ctx, error):
         orig_error = getattr(error, "original", error)
         error_str = ''.join(traceback.TracebackException.from_exception(orig_error).format())
+        try:
+            await self.bot.get_channel(self.bot.log_ch_id).send(f'```py\n{error_str}\n```')
+        except discord.errors.HTTPException:
+            await self.bot.get_channel(self.bot.log_ch_id).send('文字数を超過しました')
         print(error_str)
 
     @commands.Cog.listener()

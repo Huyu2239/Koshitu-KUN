@@ -14,13 +14,14 @@ class Reload(commands.Cog):
     @commands.command(hidden=True)
     async def reload(self, ctx, path=None):
         msg = await ctx.send('更新中')
-        for cog in os.listdir('./cogs/*.py'):
-            if cog == 'reload.py':
-                continue
-            try:
-                self.bot.reload_extension(f'cogs.{cog[:-3]}')
-            except commands.ExtensionNotLoaded:
-                self.bot.load_extension(f'cogs.{cog[:-3]}')
+        for cog in os.listdir('./cogs'):
+            if cog.endswith('.py'):
+                if cog == 'reload.py':
+                    continue
+                try:
+                    self.bot.reload_extension(f'cogs.{cog[:-3]}')
+                except commands.ExtensionNotLoaded:
+                    self.bot.load_extension(f'cogs.{cog[:-3]}')
         await msg.edit(content='更新しました')
         print('--------------------------------------------------')
 

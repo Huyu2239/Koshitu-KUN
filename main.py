@@ -23,6 +23,8 @@ class Mybot(commands.Bot):
         self.owner_id = int(os.environ['OWNER_ID'])
         self.guild_id = int(os.environ['GUILD_ID'])
         self.log_ch_id = int(os.environ['LOG_CH_ID'])
+        self.com_ch_id = 836963480069865492
+        self.member_id = 837168066516746260
 
 
     async def on_ready(self):

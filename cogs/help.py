@@ -9,6 +9,7 @@ from discord_slash.utils.manage_commands import create_choice, create_option
 class Help(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.slash_say.allowed_guild_ids = [bot.guild_id]
         asyncio.create_task(self.bot.slash.sync_all_commands())
         self.help_em = self.compose_help_em()
 
@@ -55,8 +56,7 @@ class Help(commands.Cog):
                     create_choice(name="private", value=2)
                 ]
             )
-        ],
-        guild_ids=[self.bot.guild_id]
+        ]
     )
     async def slash_say(self, ctx: SlashContext, command=None):
         if command is None:
@@ -87,6 +87,7 @@ class Help(commands.Cog):
             await ctx.send(embed=self.help_em[1])
         elif command == 2:
             await ctx.send(embed=self.help_em[2])
+
 
 
 def setup(bot):
